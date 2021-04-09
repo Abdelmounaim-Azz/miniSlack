@@ -26,11 +26,9 @@ const Home = () => {
               </a>
 
               <div className="navbar-buttons">
-                <Link href="/login">
-                  <a className="navbar-btn login-btn login">Login</a>
+                <Link href="/signup">
+                  <a className="navbar-btn login-btn login">Join us Now</a>
                 </Link>
-
-                <button className="navbar-btn signup-btn signup">Signup</button>
               </div>
             </nav>
           </div>

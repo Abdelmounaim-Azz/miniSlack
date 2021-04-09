@@ -1,5 +1,11 @@
 import { Title } from "../helpers/use-title";
+import Link from "next/link";
+import { useState, useEffect } from "react";
 const Signup = () => {
+  const [username, setUserName] = useState("");
+  useEffect(() => {
+    localStorage.setItem("username", username);
+  }, [username]);
   return (
     <>
       <Title title="Slack:Connect with everyone." />
@@ -7,12 +13,15 @@ const Signup = () => {
       <div class="signup-page">
         <div class="signup-page-top">
           <div className="login-page-logo logo">
-            <span className="p-1">S</span>
-            <span className="p-2">S</span>
-            <span>Sla</span>
-            <span>ck</span>
+            <Link href="/">
+              <a>
+                <span className="p-1">S</span>
+                <span className="p-2">S</span>
+                <span>Sla</span>
+                <span>ck</span>
+              </a>
+            </Link>
           </div>
-          <button className="login">Log In</button>
         </div>
         <div className="container">
           <div className="signup-page-content m-auto">
@@ -25,24 +34,25 @@ const Signup = () => {
               <h1>See for yourself why millions of people love Slack.</h1>
             </div>
             <div className="signup-page-content-right">
-              <h3>Sign up for Slack, it's free</h3>
-              <h4>Choose from two types of accounts:</h4>
-              <form className="signup-page-form">
+              <h3>Join Slack, it's free</h3>
+              <h4>Choose your username:</h4>
+              <form className="login-page-form">
                 <div className="input-group">
-                  <input type="radio" name="checkbox" checked />
-                  <div className="option">
-                    <h3>Personal Account</h3>
-                    <p></p>
-                  </div>
+                  <input
+                    type="text"
+                    class="form-login-input"
+                    placeholder="Enter username"
+                    value={username}
+                    onChange={(e) => {
+                      setUserName(e.target.value);
+                    }}
+                  />
                 </div>
-                <div className="input-group">
-                  <input type="radio" name="checkbox" />
-                  <div className="option">
-                    <h3>Business Account</h3>
-                    <p></p>
-                  </div>
-                </div>
-                <button className="blue-btn">Continue</button>
+                <input
+                  type="button"
+                  class="form-signup-btn signup"
+                  value="Start Messaging"
+                />
               </form>
             </div>
           </div>
