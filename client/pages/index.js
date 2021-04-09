@@ -4,7 +4,7 @@ const Home = () => {
   return (
     <>
       <Title title="Sslack:Where work happens" />
-      <div className="container">
+      <>
         <section className="section-1" id="home">
           <div className="navbar-wrapper">
             <div className="navbar-logo logo">
@@ -178,7 +178,7 @@ const Home = () => {
         <a href="#home" className="scroll-up-btn">
           <i className="fas fa-arrow-up"></i>
         </a>
-      </div>
+      </>
     </>
   );
 };
