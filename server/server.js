@@ -1,88 +1,60 @@
 const express = require("express");
-const keys = require("./keys");
-const geocoder = require("./utils/geocoder");
-const dfromlatlng = require("./utils/distancefromlatlng");
+const socketio = require("socket.io");
 const app = express();
-const { Pool } = require("pg");
-const cors = require("cors");
+let namespaces = require("./data/namespaces");
+app.use(express.static(__dirname + "/public"));
 
-app.use(express.json());
-app.use(cors());
+const server = app.listen(5000);
+const io = socketio(server);
+const updateUsersInRoom = (endpoint, room) => {
+  io.of(endpoint)
+    .in(room)
+    .clients((error, clients) => {
+      io.of(endpoint).in(room).emit("updateMembers", clients.length);
+    });
+};
 
-const pgClient = new Pool({
-  user: keys.pgUser,
-  host: keys.pgHost,
-  database: keys.pgDatabase,
-  password: keys.pgPassword,
-  port: keys.pgPort,
-});
-pgClient.on("error", () => console.log("Lost PG connection"));
-
-app.post("/api/client/:street/:city/:postalCode/:country", async (req, res) => {
-  const { city, postalCode, street, country } = req.params;
-  const adress = street.concat(" ,", city, " ", postalCode, " ,", country);
-  const location = await geocoder(adress);
-  const latClient = location.lat;
-  const lngClient = location.lng;
-  const response = await pgClient.query(
-    `SELECT name, id,lat,lng FROM public.commercial ORDER BY POINT($1,$2) <-> geocode `,
-    [latClient, lngClient]
-  );
-  let distance = [];
-  //Merge with response
-  response.rows.map((commercial) => {
-    const subDistance = {
-      distance: Math.round(
-        dfromlatlng.getDistanceFromLatLonInKm(
-          latClient,
-          lngClient,
-          commercial.lat,
-          commercial.lng
-        )
-      ),
-      id: commercial.id,
+io.of("/").on("connection", (socket) => {
+  let nsData = namespaces.map((namespace) => {
+    return {
+      img: namespace.nsImg,
+      endpoint: namespace.nsEnpoint,
     };
-    distance.push(subDistance);
   });
-  let nearBy = response.rows.map((item, i) =>
-    Object.assign({}, item, distance[i])
-  );
-  res.status(200).send({ nearBy });
+  socket.emit("nsHomies", nsData);
 });
-app.post("/api/commercial/all", async (req, res) => {
-  const { rows } = await pgClient.query(
-    "SELECT id,CONCAT(street, ', ', city ,' ',postalCode, ', ',country) AS adress FROM public.commercial "
-  );
-  rows.map(async (commercial) => {
-    const location = await geocoder(commercial.adress);
-    const lat = location.lat;
-    const lng = location.lng;
-    await pgClient.query(
-      `UPDATE public.commercial SET lat=$1,lng=$2,geocode=POINT($3,$4) WHERE id =${commercial.id}`,
-      [lat, lng, lat, lng]
-    );
+namespaces.forEach((namespace) => {
+  io.of(namespace.nsEnpoint).on("connection", (nsSocket) => {
+    const username = nsSocket.handshake.query.username;
+    console.log(username);
+    nsSocket.emit("nsRoom", namespace.rooms);
+    nsSocket.on("joinRoom", (roomTojoin, numUsersCb) => {
+      const roomToLeave = Object.keys(nsSocket.rooms)[1];
+      nsSocket.leave(roomToLeave);
+      updateUsersInRoom(namespace.nsEnpoint, roomToLeave);
+      nsSocket.join(roomTojoin);
+
+      const nsRoom = namespace.rooms.find((room) => {
+        return room.roomTitle === roomTojoin;
+      });
+      nsSocket.emit("historyEvent", nsRoom.history);
+      updateUsersInRoom(namespace.nsEnpoint, nsRoom.roomTitle);
+    });
+    nsSocket.on("newMsgToServer", (msg) => {
+      const msgObj = {
+        data: msg.data,
+        date: Date.now(),
+        username: "abdelmounaim",
+        avatar:
+          "https://via.placeholder.com/30?__cf_chl_jschl_tk__=2ca4ff89bcb9b6fb5c3549cc6552f2899202ba98-1617495756-0-Ad1FEU6t5m8GO6ulFdmheWyBGvk8TewhujX_koWhmZbbblDlrpufWObF9CXWIAS5U3oINdpG5PPQM6f3VryKONGhF783cbjXijzhkd6W3AETt74TzDFBiLqxExg8KOf9RRkAoo8fqGoOL9aXtxKKz6ba9xmTx2ssyUjMBb-J2KLZIZRjMrROCJS5SXir461-t7G3ZWn-tYcMgWBOSbYWoXppZjuCkOSPg-9LwHhdbG5uTDBFDMFP4gY_mIVMWq0g2TgGtFLRvv3PhBhGRwG2N4-y3T3BRzOZPi6F430LLf1FF1VckAqX-sX-BIFoMRyKvayxuDh2ESWy-H6UQ-I3b_m0lLyeBICTlhDNjL2xuti3_sAcfbHf1FGG9WibVm8HfA",
+      };
+      const roomTitle = Object.keys(nsSocket.rooms)[1];
+      const nsRoom = namespace.rooms.find((room) => {
+        return room.roomTitle === roomTitle;
+      });
+      console.log(nsRoom);
+      nsRoom.addMessage(msgObj);
+      io.of(namespace.nsEnpoint).to(roomTitle).emit("msgToClients", msgObj);
+    });
   });
-  res.send({});
 });
-app.post("/api/new/:id", async (req, res) => {
-  let { id } = req.params;
-  const {
-    rows,
-  } = await pgClient.query(
-    `SELECT CONCAT(street, ', ', city ,' ',postalCode, ', ',country) AS adress FROM public.commercial WHERE id= $1`,
-    [id]
-  );
-  const location = await geocoder(rows[0].adress);
-  const lat = location.lat;
-  const lng = location.lng;
-  await pgClient.query(
-    `UPDATE public.commercial SET lat=$1,lng=$2,geocode=POINT($3 ,$4) WHERE id = $5`,
-    [lat, lng, lat, lng, id]
-  );
-
-  res.send({});
-});
-
-const PORT = keys.serverPort || 5000;
-
-app.listen(PORT, console.log(`Server running   on port ${PORT}`));

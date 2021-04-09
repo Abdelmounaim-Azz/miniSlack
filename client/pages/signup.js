@@ -32,22 +32,14 @@ const Signup = () => {
                   <input type="radio" name="checkbox" checked />
                   <div className="option">
                     <h3>Personal Account</h3>
-                    <p>
-                      talk in your country and around the world from your
-                      computer all without sharing your financial info with the
-                      sellers.
-                    </p>
+                    <p></p>
                   </div>
                 </div>
                 <div className="input-group">
                   <input type="radio" name="checkbox" />
                   <div className="option">
                     <h3>Business Account</h3>
-                    <p>
-                      Accept payments and send invoices to your customers. It’s
-                      easier and more secure to sell to anyone, anywhere, and
-                      any time.
-                    </p>
+                    <p></p>
                   </div>
                 </div>
                 <button className="blue-btn">Continue</button>

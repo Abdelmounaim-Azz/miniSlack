@@ -8,11 +8,14 @@
     "start": "node server.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "Abdelmounaim Azziza",
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.17.1",
-    "pg": "^8.5.1"
+    "socket.io": "^4.0.1"
+  },
+  "devDependencies": {
+    "morgan": "^1.10.0"
   }
 }
