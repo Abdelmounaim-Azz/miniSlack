@@ -7,7 +7,7 @@
   text-decoration: none;
   font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
     "Courier New", monospace;
-} 
+}
 html {
   font-size: 62.5%;
   scroll-behavior: smooth;
@@ -21,6 +21,7 @@ html {
   --slack-ns: #2b1023;
   --slack-room: #670c47;
   --clr-secondary: hsl(205, 78%, 60%);
+  --drop: 100ms;
 }
 .container {
   max-width: 1100px;
@@ -727,6 +728,18 @@ html {
     height: 70vh;
   }
 }
+@keyframes dropIn {
+  from {
+    transform: translateY(-500px);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+.drop {
+  animation: dropIn 1s ease forwards;
+}
+
 @keyframes moveBanner {
   0% {
     transform: translateY(40rem) rotateY(-20deg);

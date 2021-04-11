@@ -48,11 +48,13 @@ const Signup = () => {
                     }}
                   />
                 </div>
-                <input
-                  type="button"
-                  class="form-signup-btn signup"
-                  value="Start Messaging"
-                />
+                <a
+                  href="http://localhost:5000/chat.html"
+                  className="form-signup-btn signup"
+                  target="_blank"
+                >
+                  Start Messaging
+                </a>
               </form>
             </div>
           </div>

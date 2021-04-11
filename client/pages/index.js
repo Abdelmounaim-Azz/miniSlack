@@ -5,8 +5,8 @@ const Home = () => {
     <>
       <Title title="Sslack:Where work happens" />
       <>
-        <section className="section-1" id="home">
-          <div className="navbar-wrapper">
+        <section className="section-1 drop" id="home">
+          <div className="navbar-wrapper ">
             <div className="navbar-logo logo">
               <span className="p-1">S</span>
               <span className="p-2">S</span>
@@ -25,7 +25,7 @@ const Home = () => {
                 contact us
               </a>
 
-              <div className="navbar-buttons">
+              <div className="navbar-buttons ">
                 <Link href="/signup">
                   <a className="navbar-btn login-btn login">Join us Now</a>
                 </Link>
