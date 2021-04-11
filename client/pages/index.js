@@ -39,7 +39,9 @@ const Home = () => {
               a more connected, inclusive and flexible future together.
             </p>
             <p className="banner-sp"> - Sslack revolution </p>
-            <button type="button">Join Now</button>
+            <Link href="/signup">
+              <button type="button">Join Now</button>
+            </Link>
           </div>
         </section>
         <section className="about-us" id="about">

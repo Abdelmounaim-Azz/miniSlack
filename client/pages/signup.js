@@ -10,8 +10,8 @@ const Signup = () => {
     <>
       <Title title="Slack:Connect with everyone." />
 
-      <div class="signup-page">
-        <div class="signup-page-top">
+      <div className="signup-page">
+        <div className="signup-page-top">
           <div className="login-page-logo logo">
             <Link href="/">
               <a>
@@ -40,7 +40,7 @@ const Signup = () => {
                 <div className="input-group">
                   <input
                     type="text"
-                    class="form-login-input"
+                    className="form-login-input ft-bld"
                     placeholder="Enter username"
                     value={username}
                     onChange={(e) => {
@@ -48,14 +48,12 @@ const Signup = () => {
                     }}
                   />
                 </div>
-                <Link href="http://localhost:5000/chat.html">
-                  <a target="_blank">
-                    <input
-                      className="form-signup-btn signup"
-                      type="button"
-                      value="Start Messaging"
-                    />
-                  </a>
+                <Link href="/slack-it">
+                  <input
+                    className="form-login-btn"
+                    type="button"
+                    value="Start Messaging"
+                  />
                 </Link>
               </form>
             </div>
