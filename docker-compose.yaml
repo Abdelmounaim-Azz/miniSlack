@@ -3,10 +3,10 @@ services:
   api-express:
     build:
       dockerfile: Dockerfile.dev
-      context: ./server
+      context: ./socket.io
     volumes:
       - /app/node_modules
-      - ./server:/app
+      - ./socket.io:/app
 
   client:
     build:
