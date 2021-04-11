@@ -9,9 +9,7 @@ class MyDocument extends Document {
   render() {
     return (
       <Html>
-        <Head>
-          <script src="/slide.js"></script>
-        </Head>
+        <Head></Head>
 
         <body>
           <Main />

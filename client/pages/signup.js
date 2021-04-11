@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 const Signup = () => {
   const [username, setUserName] = useState("");
   useEffect(() => {
-    localStorage.setItem("username", username);
+    sessionStorage.setItem("username", username);
   }, [username]);
   return (
     <>
