@@ -4,8 +4,9 @@ import { useState, useEffect } from "react";
 const slackIt = () => {
   const [username, setUserName] = useState("");
   useEffect(() => {
-    sessionStorage.setItem("username", username);
-  }, [username]);
+    const username = localStorage.getItem("username");
+    setUserName(username);
+  }, []);
   return (
     <>
       <Title title="Slack:slack-it with whomever you want" />
@@ -16,7 +17,11 @@ const slackIt = () => {
           integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
           crossOrigin="anonymous"
         />
-        <script src="http://localhost:5000/socket.io/socket.io.js"></script>
+        <script
+          src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.js"
+          integrity="sha512-7IDZ+mHVoc7nSziUi72L5rGojJDtveVWHOjb+Eu8QSnguy5FitNnFyEoLoL3v1u18DNm4E30elDfkhZvVADw6Q=="
+          crossorigin="anonymous"
+        ></script>
         <script src="/scripts.js"></script>
         <script src="/joinNs.js"></script>
         <script src="/joinRoom.js"></script>

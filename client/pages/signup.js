@@ -1,11 +1,15 @@
 import { Title } from "../helpers/use-title";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 const Signup = () => {
   const [username, setUserName] = useState("");
-  useEffect(() => {
-    sessionStorage.setItem("username", username);
-  }, [username]);
+  const router = useRouter();
+  const onInputClick = (e) => {
+    e.preventDefault();
+    localStorage.setItem("username", username);
+    router.push("/slack-it");
+  };
   return (
     <>
       <Title title="Slack:Connect with everyone." />
@@ -48,13 +52,13 @@ const Signup = () => {
                     }}
                   />
                 </div>
-                <Link href="/slack-it">
-                  <input
-                    className="form-login-btn"
-                    type="button"
-                    value="Start Messaging"
-                  />
-                </Link>
+
+                <input
+                  className="form-login-btn"
+                  type="button"
+                  value="Start Messaging"
+                  onClick={onInputClick}
+                />
               </form>
             </div>
           </div>

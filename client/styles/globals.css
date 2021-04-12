@@ -62,6 +62,19 @@ body::-webkit-scrollbar-thumb {
   justify-content: center;
   align-items: center;
 }
+/* Logo svg signature */
+.signature {
+  stroke-dasharray: 1208;
+  stroke-dashoffset: 1208;
+  animation: signature 4s ease;
+  animation-fill-mode: forwards;
+}
+
+@keyframes signature {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
 
 .section-1 {
   width: 100%;
@@ -99,8 +112,8 @@ body::-webkit-scrollbar-thumb {
 }
 
 .banner-sp {
-  font-size: 3rem;
-  margin-bottom: 5rem;
+  width: 200px;
+  height: 100px;
   animation: moveBanner 1s 0.9s forwards;
 }
 .mb-2 {

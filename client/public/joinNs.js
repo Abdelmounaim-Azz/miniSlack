@@ -35,7 +35,10 @@ function joinNs(endpoint) {
 const formSubmission = (event) => {
   event.preventDefault();
   const newMessage = document.querySelector("#user-message").value;
-  nsSocket.emit("newMessageToServer", { text: newMessage });
+  nsSocket.emit("newMessageToServer", {
+    text: newMessage,
+    username: localStorage.getItem("username"),
+  });
   document.getElementById("user-message").value = "";
 };
 
