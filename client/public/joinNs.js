@@ -48,7 +48,7 @@ function buildChat(msg) {
   const newChat = `
     <li class="user-li">
         <div class="user-image">
-            <img src="${msg.avatar}" />
+            <img src="${msg.avatar}" class="w-60 h-40 radius-50" />
         </div>
         <div class="user-message">
             <div class="user-name-time ft-bld">${msg.username} <span class="ft-normal">${formattedDate}</span></div>

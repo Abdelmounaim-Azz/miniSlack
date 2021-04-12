@@ -872,6 +872,9 @@ input {
 .h-40 {
   height: 40px;
 }
+.radius-50 {
+  border-radius: 5px;
+}
 .ft-bld {
   font-weight: 600;
 }
