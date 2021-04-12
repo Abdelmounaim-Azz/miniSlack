@@ -26,27 +26,27 @@ const slackIt = () => {
         <script src="/joinNs.js"></script>
         <script src="/joinRoom.js"></script>
       </Head>
-      <div class="container-fluid">
-        <div class="row">
-          <div class="col-sm-1 namespaces"></div>
-          <div class="col-sm-2 rooms">
+      <div className="container-fluid">
+        <div className="row">
+          <div className="col-sm-1 namespaces"></div>
+          <div className="col-sm-2 rooms">
             <h3>Channels</h3>
-            <ul class="room-list"></ul>
+            <ul className="room-list"></ul>
           </div>
-          <div class="chat-panel col-sm-9">
-            <div class="room-header row col-6">
-              <div class="col-sm-3">
-                <span class="curr-room-text"></span>
-                <span class="curr-room-num-users"></span>
+          <div className="chat-panel col-sm-9">
+            <div className="room-header row col-6">
+              <div className="col-sm-3">
+                <span className="curr-room-text"></span>
+                <span className="curr-room-num-users"></span>
               </div>
-              <div class="col-sm-3 search pull-right">
-                <span class="glyphicon glyphicon-search"></span>
+              <div className="col-sm-3 search pull-right">
+                <span className="glyphicon glyphicon-search"></span>
                 <input type="text" id="search-box" placeholder="Search" />
               </div>
             </div>
-            <div class="message-form">
+            <div className="message-form">
               <form id="user-input">
-                <div class="col-sm-12">
+                <div className="col-sm-12">
                   <input
                     id="user-message"
                     type="text"
@@ -55,7 +55,7 @@ const slackIt = () => {
                 </div>
               </form>
             </div>
-            <ul id="messages" class="col-sm-12"></ul>
+            <ul id="messages" className="col-sm-12"></ul>
           </div>
         </div>
       </div>

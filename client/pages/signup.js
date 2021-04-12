@@ -1,15 +1,7 @@
 import { Title } from "../helpers/use-title";
 import Link from "next/link";
-import { useRouter } from "next/router";
-import { useState, useEffect } from "react";
+import { Login, Logout } from "../helpers/use-googleAuth";
 const Signup = () => {
-  const [username, setUserName] = useState("");
-  const router = useRouter();
-  const onInputClick = (e) => {
-    e.preventDefault();
-    localStorage.setItem("username", username);
-    router.push("/slack-it");
-  };
   return (
     <>
       <Title title="Slack:Connect with everyone." />
@@ -41,24 +33,9 @@ const Signup = () => {
               <h3>Join Slack, it's free</h3>
               <h4>Choose your username:</h4>
               <form className="login-page-form">
-                <div className="input-group">
-                  <input
-                    type="text"
-                    className="form-login-input ft-bld"
-                    placeholder="Enter username"
-                    value={username}
-                    onChange={(e) => {
-                      setUserName(e.target.value);
-                    }}
-                  />
-                </div>
+                <Login />
 
-                <input
-                  className="form-login-btn"
-                  type="button"
-                  value="Start Messaging"
-                  onClick={onInputClick}
-                />
+                <Logout />
               </form>
             </div>
           </div>

@@ -37,7 +37,7 @@ namespaces.forEach((namespace) => {
         username: msg.username,
         text: msg.text,
         time: Date.now(),
-        avatar: "https://via.placeholder.com/30",
+        avatar: msg.avatar,
       };
       const roomTitle = Object.keys(nsSocket.rooms)[1];
       const nsRoom = namespace.rooms.find((room) => {

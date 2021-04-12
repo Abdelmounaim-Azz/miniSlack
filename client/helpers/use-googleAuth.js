@@ -1,17 +1,21 @@
 import { useGoogleLogin } from "react-google-login";
+import { useGoogleLogout } from "react-google-login";
+import { useRouter } from "next/router";
+import { refreshTokenSetup } from "./use-refreshToken";
 
-import { refreshTokenSetup } from "../utils/refreshToken";
+const clientId = process.env.NEXT_PUBLIC_CLIENT_ID;
 
-const clientId = process.env.CLIENT_ID;
-
-export function LoginHooks() {
+export function Login() {
+  const router = useRouter();
   const onSuccess = (res) => {
-    console.log("Login Success: currentUser:", res.profileObj);
+    localStorage.setItem("username", res.profileObj.name);
+    localStorage.setItem("avatar", res.profileObj.imageUrl);
     refreshTokenSetup(res);
+    router.push("/slack-it");
   };
 
   const onFailure = (res) => {
-    console.log("Login failed: res:", res);
+    console.log("Login failed");
   };
 
   const { signIn } = useGoogleLogin({
@@ -33,7 +37,7 @@ export function LoginHooks() {
   );
 }
 
-export function LogoutHooks() {
+export function Logout() {
   const onLogoutSuccess = (res) => {
     console.log("Logged out Success");
   };

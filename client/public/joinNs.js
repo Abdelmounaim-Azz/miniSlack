@@ -38,6 +38,7 @@ const formSubmission = (event) => {
   nsSocket.emit("newMessageToServer", {
     text: newMessage,
     username: localStorage.getItem("username"),
+    avatar: localStorage.getItem("avatar"),
   });
   document.getElementById("user-message").value = "";
 };
