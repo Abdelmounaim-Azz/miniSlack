@@ -1,12 +1,13 @@
 import { Title } from "../helpers/use-title";
 import Head from "next/head";
-import { useState, useEffect } from "react";
+import { Logout } from "../helpers/use-googleAuth";
+import { useHasMounted } from "../helpers/use-hasMounted";
+
 const slackIt = () => {
-  const [username, setUserName] = useState("");
-  useEffect(() => {
-    const username = localStorage.getItem("username");
-    setUserName(username);
-  }, []);
+  const hasMounted = useHasMounted();
+  if (!hasMounted) {
+    return null;
+  }
   return (
     <>
       <Title title="Slack:slack-it with whomever you want" />
@@ -29,6 +30,9 @@ const slackIt = () => {
       <div className="container-fluid">
         <div className="row">
           <div className="col-sm-1 namespaces"></div>
+          <div className="flex-end">
+            <Logout />
+          </div>
           <div className="col-sm-2 rooms">
             <h3>Channels</h3>
             <ul className="room-list"></ul>

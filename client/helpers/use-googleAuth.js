@@ -38,8 +38,10 @@ export function Login() {
 }
 
 export function Logout() {
+  const router = useRouter();
   const onLogoutSuccess = (res) => {
     console.log("Logged out Success");
+    router.push("/");
   };
 
   const onFailure = () => {
@@ -53,10 +55,11 @@ export function Logout() {
   });
 
   return (
-    <button onClick={signOut} className="button-google">
-      <img src="google.svg" alt="google login" className="icon"></img>
-
-      <span className="buttonText">Sign out</span>
-    </button>
+    <span className="buttonText cursor">
+      Sign out
+      <a onClick={signOut}>
+        <i className="fas fa-sign-out-alt"></i>
+      </a>
+    </span>
   );
 }

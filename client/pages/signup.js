@@ -1,6 +1,7 @@
 import { Title } from "../helpers/use-title";
 import Link from "next/link";
-import { Login, Logout } from "../helpers/use-googleAuth";
+import { Login } from "../helpers/use-googleAuth";
+
 const Signup = () => {
   return (
     <>
@@ -31,12 +32,8 @@ const Signup = () => {
             </div>
             <div className="signup-page-content-right">
               <h3>Join Slack, it's free</h3>
-              <h4>Choose your username:</h4>
-              <form className="login-page-form">
-                <Login />
-
-                <Logout />
-              </form>
+              <h4>Your data is not stored anywhere.</h4>
+              <Login />
             </div>
           </div>
         </div>

@@ -907,6 +907,14 @@ input {
   color: #4285f4;
   font-weight: bolder;
 }
+.cursor {
+  cursor: pointer;
+}
+.flex-end {
+  position: absolute;
+  top: 80vh;
+  left: 20px;
+}
 
 .icon {
   height: 25px;
