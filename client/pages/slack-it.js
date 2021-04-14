@@ -22,10 +22,11 @@ const slackIt = () => {
           src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.js"
           integrity="sha512-7IDZ+mHVoc7nSziUi72L5rGojJDtveVWHOjb+Eu8QSnguy5FitNnFyEoLoL3v1u18DNm4E30elDfkhZvVADw6Q=="
           crossOrigin="anonymous"
+          defer
         ></script>
-        <script src="/scripts.js"></script>
-        <script src="/joinNs.js"></script>
-        <script src="/joinRoom.js"></script>
+        <script defer src="/scripts.js"></script>
+        <script defer src="/joinNs.js"></script>
+        <script defer src="/joinRoom.js"></script>
       </Head>
       <div className="container-fluid">
         <div className="row">
